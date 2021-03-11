@@ -43,28 +43,25 @@ class LinkedList:
 
     def delete(self, val, all=False):
         node = self.head
-        if all:
-            while node is not None:
-                if node.value = val:
-                    self.head = node.next
-                    node = None
-                    node = self.head
-                else:
-                    node = node.next
-        else:
-            if node not is None and node.value = val:
-                self.head = node.next
-                node = None
-                return
+        # if all:
+        prev = None
 
-            prev = None
-            while node not is None and node.value != val:
+        while node is not None and node.value == val:
+            self.head = node.next
+            node = None
+            if all:
+                node = self.head
+
+        while node is not None:
+            while node is not None and node.value != val:
                 prev = node
                 node = node.next
             if node is None:
                 return
             prev.next = node.next
             node = None
+            if all:
+                node = prev.next
 
     def clean(self):
         node = self.head
@@ -76,7 +73,7 @@ class LinkedList:
     def len(self):
         node = self.head
         count = 0
-        while node not is None:
+        while node is not None:
             count += 1
             node = node.next
         return count
