@@ -50,6 +50,8 @@ class LinkedList:
             node = None
             if all:
                 node = self.head
+            else:
+                return
 
         while node is not None:
             while node is not None and node.value != val:
@@ -62,7 +64,9 @@ class LinkedList:
             node = None
             if all:
                 node = prev.next
-        self.tail = prev
+
+        if prev.next is None:
+            self.tail = prev
 
     def clean(self):
         node = self.head
@@ -81,12 +85,17 @@ class LinkedList:
         return count
 
     def insert(self, afterNode, newNode):
+        if self.head is None:
+            self.head = newNode
+            self.tail = newNode
+            return
+
         if afterNode is None:
             newNode.next = self.head
             self.head = newNode
+        else:
+            newNode.next = afterNode.next
+            afterNode.next = newNode
 
-        if afterNode.next is None:
-            self.tail = newNode
-
-        newNode.next = afterNode.next
-        afterNode.next = newNode
+            if newNode.next is None:
+                self.tail = newNode
