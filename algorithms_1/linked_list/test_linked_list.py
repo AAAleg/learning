@@ -145,6 +145,23 @@ class TestLinkedListMethods(unittest.TestCase):
     self.assertEqual(l.head, h)
     self.assertEqual(l.tail, t)
 
+  def test_delete_from_list_with_one_element(self):
+    l = LinkedList()
+    i = Node(1)
+
+    l.add_in_tail(i)
+
+    self.assertEqual(l.len(), 1)
+    self.assertEqual(l.head, i)
+    self.assertEqual(l.tail, i)
+
+    l.delete(1)
+
+    self.assertEqual(l.len(), 0)
+    self.assertEqual(l.head, None)
+    self.assertEqual(l.tail, None)
+
+
   def test_delete_from_head(self):
     l = LinkedList()
     h = Node(1)
