@@ -48,20 +48,23 @@ class LinkedList:
         while node is not None and node.value == val:
             self.head = node.next
             node = None
+
             if all:
                 node = self.head
-            else:
-                if self.head is None:
-                    self.tail = None
-                return
+
+        if self.head is None:
+            self.tail = None
+            return
 
         while node is not None:
             while node is not None and node.value != val:
                 prev = node
                 node = node.next
+
             if node is None:
                 self.tail = prev
                 return
+
             prev.next = node.next
             node = None
             if all:
