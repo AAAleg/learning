@@ -67,7 +67,7 @@ class LinkedList:
             if all:
                 node = prev.next
 
-        if prev.next is None:
+        if prev is not None and prev.next is None:
             self.tail = prev
 
     def clean(self):
