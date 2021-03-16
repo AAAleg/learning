@@ -39,35 +39,26 @@ class LinkedList2:
 
     def delete(self, val, all=False):
         node = self.head
-        prev = None
-
-        while node is not None and node.value == val:
-            self.head = node.next
-            node = None
-
-            if all:
-                node = self.head
-
-        if self.head is None:
-            self.tail = None
-            return
 
         while node is not None:
-            while node is not None and node.value != val:
-                prev = node
-                node = node.next
-
-            if node is None:
-                self.tail = prev
-                return
-
-            prev.next = node.next
-            node = None
-            if all:
-                node = prev.next
-
-        if prev is not None and prev.next is None:
-            self.tail = prev
+            if node.value == val:
+                if node is self.head and node is self.tail:
+                    self.head = None
+                    self.tail = None
+                elif node is self.head:
+                    self.head = node.next
+                    self.head.prev = None
+                elif node is self.tail:
+                    self.tail = node.prev
+                    self.tail.next = None
+                    node = self.tail
+                else:
+                    node.prev.next = node.next
+                    node.next.prev = node.prev
+                    node = node.prev
+                if all is False:
+                    return
+            node = node.next
 
     def clean(self):
         node = self.head
@@ -87,16 +78,7 @@ class LinkedList2:
 
     def insert(self, afterNode, newNode):
         if afterNode is None:
-            if self.head is None:
-                self.head = newNode
-                newNode.prev = None
-                newNode.next = None
-                self.tail = newNode
-            else:
-                newNode.prev = self.tail
-                self.tail.next = newNode
-                self.tail = newNode
-
+            self.add_in_tail(newNode)
         else:
             newNode.next = afterNode.next
             newNode.prev = afterNode
@@ -106,12 +88,11 @@ class LinkedList2:
             self.tail = newNode
 
     def add_in_head(self, newNode):
-    	if self.head is None:
-    		self.head = newNode
-    		newNode.prev = None
-    		newNode.next = None
-    		self.tail = newNode
-    	else:
-    		newNode.next = self.head
-    		newNode.prev = None
-    	self.head = newNode
+        if self.head is not None:
+            newNode.next = self.head
+            newNode.next.prev = newNode
+            self.head = newNode
+        else:
+            self.head = newNode
+            self.tail = newNode
+            
