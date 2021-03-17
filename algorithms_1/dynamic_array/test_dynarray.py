@@ -28,6 +28,22 @@ class TestDynArrayMethods(unittest.TestCase):
         self.assertEqual(d.count, count + 1)
         self.assertEqual(d.capacity, capacity * 2)
 
+    def test_insert_with_overflow_2(self):
+        d = DynArray()
+        count = 16
+        capacity = d.capacity
+
+        for i in range(0, count):
+            d.append(i)
+
+        self.assertEqual(d.count, count)
+        self.assertEqual(d.capacity, capacity)
+
+        d.insert(17, 17)
+
+        self.assertEqual(d.count, count + 1)
+        self.assertEqual(d.capacity, capacity*2)
+
     def test_insert_out_of_bound(self):
         d = DynArray()
 

@@ -19,6 +19,8 @@ class DynArray:
         return self.array[i]
 
     def resize(self, new_capacity):
+        if new_capacity < 16:
+            new_capacity = 16
         new_array = self.make_array(new_capacity)
         for i in range(self.count):
             new_array[i] = self.array[i]
@@ -34,8 +36,11 @@ class DynArray:
     def insert(self, i, itm):
         if i < 0 or i > self.count:
             raise IndexError('Index is out of bounds')
+        if self.count == self.capacity:
+            self.resize(2 * self.capacity)
         if i == self.count:
-            self.append(itm)
+            self.array[self.count] = itm
+            self.count += 1
         else:
             new_array = self.make_array(self.capacity)
             if i != 0:
@@ -63,6 +68,5 @@ class DynArray:
         self.count -= 1
 
         if self.count / self.capacity * 100 < 50:
-            new_capacity = int(self.capacity / 1.5)
-            self.resize(new_capacity if new_capacity >= 16 else 16)
+            self.resize(int(self.capacity / 1.5))
         
