@@ -23,9 +23,9 @@ class TestDynArrayMethods(unittest.TestCase):
         for i in range(0, count):
             d.append(i)
 
-        d.insert(16, 17)
+        d.insert(16, 16)
 
-        self.assertEqual(d.count, count + 1)
+        self.assertEqual(d.count, count+1)
         self.assertEqual(d.capacity, capacity * 2)
 
     def test_insert_with_overflow_2(self):
@@ -39,9 +39,9 @@ class TestDynArrayMethods(unittest.TestCase):
         self.assertEqual(d.count, count)
         self.assertEqual(d.capacity, capacity)
 
-        d.insert(17, 17)
+        d.insert(0, -1)
 
-        self.assertEqual(d.count, count + 1)
+        self.assertEqual(d.count, count+1)
         self.assertEqual(d.capacity, capacity*2)
 
     def test_insert_out_of_bound(self):
