@@ -4,7 +4,7 @@ class Queue:
         self._size = 0
 
     def isEmpty(self):
-    	return self._size == 0
+        return self._size == 0
 
     def enqueue(self, item):
         self.items.insert(0, item)
@@ -12,14 +12,14 @@ class Queue:
 
     def dequeue(self):
         if not self.isEmpty():
-        	self._size -= 1
-        	return self.items.pop()
+            self._size -= 1
+            return self.items.pop()
         return None 
 
     def size(self):
         return self._size
 
     def rotate(self, n):
-    	if not self.isEmpty():
-    		for _ in range(n):
-    			self.enqueue(self.dequeue())
+        if not self.isEmpty():
+            for _ in range(n):
+                self.enqueue(self.dequeue())
