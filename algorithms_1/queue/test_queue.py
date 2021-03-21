@@ -19,7 +19,7 @@ class TestDynArrayMethods(unittest.TestCase):
 
         self.assertEqual(q.size(), len(items))
 
-        self.assertEqual(q.items, list(reversed(items)))
+        self.assertEqual(q.items, items[::-1])
 
     def test_dequeue_from_empty_queue(self):
         q = Queue()
@@ -35,7 +35,7 @@ class TestDynArrayMethods(unittest.TestCase):
 
         q.rotate(2)
 
-        self.assertEqual(q.items, list(reversed(expected)))
+        self.assertEqual(q.items, expected[::-1])
 
 
 if __name__ == '__main__':
