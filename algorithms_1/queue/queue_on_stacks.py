@@ -96,13 +96,11 @@ class Queue:
 
     def dequeue(self):
         if not self.isEmpty():
-            while not self.main.isEmpty():
-                self.swap.push(self.main.pop())
-            item = self.swap.pop()
-            while not self.swap.isEmpty():
-                self.main.push(self.swap.pop())
+            if self.swap.isEmpty():
+                while not self.main.isEmpty():
+                    self.swap.push(self.main.pop())
             self._size -= 1
-            return item
+            return self.swap.pop()
         return None 
 
     def size(self):
