@@ -34,7 +34,7 @@ class TestHashMethods(unittest.TestCase):
 		for i in range(size):
 			self.assertEqual(h.slots[i], "python")
 
-		self.assertEqual(h.seek_slot("python"), None)
+		self.assertEqual(h.put("python"), None)
 
 	def test_find(self):
 		size = 30
