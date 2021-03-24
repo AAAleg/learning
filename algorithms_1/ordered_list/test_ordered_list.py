@@ -140,6 +140,29 @@ class TestOrderedListMethods(unittest.TestCase):
 
 		self.assertEqual(node.value, 4)
 
+	def test_clean(self):
+		ol = OrderedList(asc=True)
+
+		items = [4,6,2,8,5]
+
+		for item in items:
+			ol.add(item)
+
+		ol.clean(asc=True)
+
+		self.assertEqual(ol.head, None)
+		self.assertEqual(ol.tail, None)
+
+	def test_len(self):
+		ol = OrderedList(asc=True)
+
+		items = [4,6,2,8,5]
+
+		for item in items:
+			ol.add(item)
+
+		self.assertEqual(ol.len(), len(items))
+
 
 if __name__ == '__main__':
 	unittest.main()
