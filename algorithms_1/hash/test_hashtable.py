@@ -10,7 +10,7 @@ class TestHashMethods(unittest.TestCase):
 		step = 30
 		h = HashTable(size, step)
 		
-		self.assertEqual(h.hash_fun("python"), 99)
+		self.assertEqual(h.hash_fun("python"), 107)
 
 	def test_seek_slot(self):
 		size = 38
@@ -49,7 +49,6 @@ class TestHashMethods(unittest.TestCase):
 		self.assertEqual(h.find("Two"), h.hash_fun("Two"))
 		self.assertEqual(h.find("Three"), h.hash_fun("Three"))
 		self.assertEqual(h.find("Four"), None)
-
 
 
 if __name__ == '__main__':

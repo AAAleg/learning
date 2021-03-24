@@ -5,42 +5,52 @@ class HashTable:
         self.slots = [None] * self.size
 
     def hash_fun(self, value):
-        return sum(map(ord, value)) % self.size
+        p = 0.33
+        summ = sum(map(lambda s: ord(s) * p, value))
+        return int(summ % self.size)
 
     def seek_slot(self, value):
         index = self.hash_fun(value)
-        count = 0
+        step = self.step
 
-        while None in self.slots:
-            if self.slots[index] is None:
-                return index
-            if self.slots[index] is not None:
-                index += self.step
-            if index > self.size - 1:
-                index = count
-                count += 1
-        
-        return None
+        if None in self.slots:
+            i = self.hash_fun(value)
+            step = self.step
+
+            while True:
+                try:
+                    if self.slots[index] is None:
+                        return index
+                    else:
+                        index += step
+                except IndexError:
+                    index = 0
+                    step //= 2
+        else:
+            return None
 
     def put(self, value):
-        index = self.seek_slot(value)
+        index = self.hash_fun(value)
 
-        if index is not None:
+        if self.slots[index] is None:
             self.slots[index] = value
             return index
-        else: 
+
+        elif None in self.slots:
+            index = self.seek_slot(value)
+            self.slots[index] = value
+            return index
+        else:
             return None
 
     def find(self, value):
-        count = 0
         index = self.hash_fun(value)
-        while value in self.slots:
-            if self.slots[index] == value:
-                return index
-            if self.slots[index] != value:
-                count += self.step
-            if index > self.size - 1:
-                index = count 
-                count += 1
+
+        if self.slots[index] == value:
+            return index
         else:
-            return None
+            try:
+                index = self.slots.index(value)
+                return index
+            except ValueError:
+                return None
