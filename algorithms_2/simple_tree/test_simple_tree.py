@@ -169,11 +169,15 @@ class TestSimpleTreeMethods(unittest.TestCase):
         tree.AddChild(node4, node6)
 
         self.assertEqual(tree.Count(), 7)
+        self.assertEqual(tree.LeafCount(), 4)
 
         self.assertEqual(node4.Children, [node5, node6])
         self.assertEqual(node4.Parent, node3)
 
         tree.MoveNode(node4, node)
+
+        self.assertEqual(tree.Count(), 7)
+        self.assertEqual(tree.LeafCount(), 4)
 
         self.assertEqual(node4.Children, [node5, node6])
         self.assertEqual(node4.Parent, node)
