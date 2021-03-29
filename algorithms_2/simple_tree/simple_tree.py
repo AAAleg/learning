@@ -45,7 +45,7 @@ class SimpleTree:
         return walk(self.Root, val)
    
     def MoveNode(self, OriginalNode, NewParent):
-        if OriginalNode.parent is not self.Root:    
+        if OriginalNode.Parent is not self.Root:    
             self.DeleteNode(OriginalNode)
             self.AddChild(NewParent, OriginalNode)
    
