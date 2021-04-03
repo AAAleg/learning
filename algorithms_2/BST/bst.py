@@ -19,7 +19,7 @@ class BST:
         self.Root = node 
 
     def FindNodeByKey(self, key):
-        def find_in_subtree(self, node, key):
+        def find_in_subtree(node, key):
             if key == node.NodeKey:
                 find_result = BSTFind()
                 find_result.Node = node

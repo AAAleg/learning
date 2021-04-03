@@ -1,9 +1,13 @@
 import unittest
 
-from bst import BST
+from bst import BST, BSTNode
 
 class TestBSTMethods(unittest.TestCase):
-	pass
+	def test_delete(self):
+		root = BSTNode(10, 10, None)
+		tree = BST(root)
+		tree.DeleteNodeByKey(10)
+		
 
 if __name__ == '__name__':
 	unittest.main()
