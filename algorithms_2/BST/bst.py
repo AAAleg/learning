@@ -37,17 +37,20 @@ class BST:
         return cursor 
 
     def AddKeyValue(self, key, val):
-        cursor = self.FindNodeByKey(key)
-        node = BSTNode(key, val, None)
-        if cursor.NodeHasKey is False:
-            if cursor.ToLeft is False:
-                node.Node.RightChild = node
-            else:
-                node.Node.LeftChild = node
-            node.Parent = cursor.Node
-            return True
+        find_result = self.FindNodeByKey(key)
+
+        if find_result.NodeHasKey:
+            return False
+
+        new_node = BSTNode(key, val, find_result.Node)
+        if find_result.Node is None:
+            self.Root = new_node
         else:
-            return False 
+            if find_result.ToLeft:
+                find_result.Node.LeftChild = new_node
+            else:
+                find_result.Node.RightChild = new_node
+        return True
   
     def FinMinMax(self, FromNode, FindMax):
         node = FromNode
