@@ -19,22 +19,33 @@ class BST:
         self.Root = node 
 
     def FindNodeByKey(self, key):
-        cursor = BSTFind()
-        cursor.Node = self.Root
-        while cursor.Node.NodeKey != key:
-            if key >= node.Node.NodeKey:
-                if cursor.Node.RightChild is None:
-                    break
-                cursor.Node = cursor.Node.RightChild
+        def find_in_subtree(self, node, key):
+            if key == node.NodeKey:
+                find_result = BSTFind()
+                find_result.Node = node
+                find_result.NodeHasKey = True
+                return find_result
+            elif key < node.NodeKey:
+                if node.LeftChild is None:
+                    find_result = BSTFind()
+                    find_result.Node = node
+                    find_result.NodeHasKey = False
+                    find_result.ToLeft = True
+                    return find_result
+                return find_in_subtree(node.LeftChild, key)
             else:
-                if cursor.Node.LeftChild is None:
-                    cursor.ToLeft = True
-                    break
-                cursor.Node = cursor.Node.LeftChild
-        else:
-            cursor.NodeHasKey = True
+                if node.RightChild is None:
+                    find_result = BSTFind()
+                    find_result.Node = node
+                    find_result.NodeHasKey = False
+                    find_result.ToLeft = False
+                    return find_result
+                return find_in_subtree(node.RightChild, key)
 
-        return cursor 
+        if self.Root is None:
+            return BSTFind()
+
+        return find_in_subtree(self.Root, key)
 
     def AddKeyValue(self, key, val):
         find_result = self.FindNodeByKey(key)
