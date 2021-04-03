@@ -122,10 +122,12 @@ class BST:
 
     def Count(self):
         def count_subtree(node):
+            result = 1
             if node.LeftChild is not None:
-                return 1 + sum(count_subtree(node.LeftChild))
+                result += self.count_subtree(node.LeftChild)
             if node.RightChild is not None:
-                return 1 + sum(count_subtree(node.RightChild))
+                result += self.count_subtree(node.RightChild)
+            return result
 
         if self.Root is None:
             return 0
