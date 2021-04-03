@@ -1,5 +1,4 @@
 class BSTNode:
-	
     def __init__(self, key, val, parent):
         self.NodeKey = key 
         self.NodeValue = val 
@@ -9,7 +8,6 @@ class BSTNode:
 
 
 class BSTFind: 
-
     def __init__(self):
         self.Node = None
         self.NodeHasKey = False 
@@ -17,7 +15,6 @@ class BSTFind:
         
 
 class BST:
-
     def __init__(self, node):
         self.Root = node 
 
@@ -40,7 +37,6 @@ class BST:
         return cursor 
 
     def AddKeyValue(self, key, val):
-        
         cursor = self.FindNodeByKey(key)
         node = BSTNode(key, val, None)
         if cursor.NodeHasKey is False:
@@ -50,12 +46,10 @@ class BST:
                 node.Node.LeftChild = node
             node.Parent = cursor.Node
             return True
-        else
+        else:
             return False 
   
     def FinMinMax(self, FromNode, FindMax):
-        
-        
         node = FromNode
         if FindMax:
             while node.RightChild is not None:
@@ -137,3 +131,5 @@ class BST:
             return 0
 
         return count_subtree(self.Root) 
+
+
