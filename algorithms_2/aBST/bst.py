@@ -24,15 +24,15 @@ class aBST:
         if index is None:
             return -1
         if index > 0:
-            return 0
+            return index
         self.Tree[-index] = key
         return -index
 
     def isEmpty(self):
         return self.Tree[0] is None
 
-    def getLeftChildIndex(index):
+    def getLeftChildIndex(self, index):
         return index * 2 + 1
 
-    def getRightChildIndex(index):
+    def getRightChildIndex(self, index):
         return index * 2 + 2
