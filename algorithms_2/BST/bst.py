@@ -6,6 +6,12 @@ class BSTNode:
         self.LeftChild = None 
         self.RightChild = None 
 
+    def has_right_child(self):
+        return self.RightChild is not None
+
+    def has_left_child(self):
+        return self.LeftChild is not None
+
 
 class BSTFind: 
     def __init__(self):
@@ -15,8 +21,15 @@ class BSTFind:
         
 
 class BST:
+    IN_ORDER = 0
+    POST_ORDER = 1
+    PRE_ORDER = 2
+
     def __init__(self, node):
-        self.Root = node 
+        self.Root = node
+
+    def isEmpty(self):
+        return self.Root is None
 
     def FindNodeByKey(self, key):
         def find_in_subtree(node, key):
@@ -26,7 +39,7 @@ class BST:
                 find_result.NodeHasKey = True
                 return find_result
             elif key < node.NodeKey:
-                if node.LeftChild is None:
+                if not node.has_left_child():
                     find_result = BSTFind()
                     find_result.Node = node
                     find_result.NodeHasKey = False
@@ -34,7 +47,7 @@ class BST:
                     return find_result
                 return find_in_subtree(node.LeftChild, key)
             else:
-                if node.RightChild is None:
+                if not node.has_right_child():
                     find_result = BSTFind()
                     find_result.Node = node
                     find_result.NodeHasKey = False
@@ -42,7 +55,7 @@ class BST:
                     return find_result
                 return find_in_subtree(node.RightChild, key)
 
-        if self.Root is None:
+        if self.isEmpty():
             return BSTFind()
 
         return find_in_subtree(self.Root, key)
@@ -66,10 +79,10 @@ class BST:
     def FinMinMax(self, FromNode, FindMax):
         node = FromNode
         if FindMax:
-            while node.RightChild is not None:
+            while node.RightChild:
                 node = node.RightChild
         else:
-            while node.LeftChild is not None:
+            while node.LeftChild:
                 node = node.LeftChild
         return node
 	
@@ -80,44 +93,36 @@ class BST:
 
         delete = find_result.Node
 
-        SIDE_LEFT = 'left'
-        SIDE_RIGHT = 'right'
-        SIDE_NONE = 'none'
-        if delete.Parent:
-            delete_side = SIDE_RIGHT if delete.Parent.RightChild == delete else SIDE_LEFT
-        else:
-            delete_side = SIDE_NONE
+        delete_side = None if not delete.Parent else (True if delete.Parent.RightChild == delete else False)
         
-        if delete.RightChild is not None:
+        if delete.has_right_child():
             swap = self.FinMinMax(delete.RightChild, False)
-        elif delete.LeftChild is not None:
+        elif delete.has_left_child():
             swap = self.FinMinMax(delete.LeftChild, True)
         else:
             swap = None
         
         if swap is None:
-            if delete_side == SIDE_RIGHT:
+            if delete_side is True:
                 delete.Parent.RightChild = None
-            elif delete_side == SIDE_LEFT:
+            elif delete_side is False:
                 delete.Parent.LeftChild = None
             else:
                 self.Root = None
             return True
         
-        swap_right = swap.Parent.RightChild == swap
-        
-        if swap_right:
+        if swap.Parent.RightChild == swap:
             swap.Parent.RightChild = swap.LeftChild
-            if swap.LeftChild is not None:
+            if swap.has_left_child():
                 swap.LeftChild.Parent = swap.Parent
         else:
             swap.Parent.LeftChild = swap.RightChild
-            if swap.RightChild is not None:
+            if swap.has_right_child():
                 swap.RightChild.Parent = swap.Parent
         
-        if delete_side == SIDE_RIGHT:
+        if delete_side is True:
             delete.Parent.RightChild = swap
-        elif delete_side == SIDE_LEFT:
+        elif delete_side is False:
             delete.Parent.LeftChild = swap
         else:
             self.Root = swap
@@ -125,11 +130,11 @@ class BST:
         swap.Parent = delete.Parent
  
         swap.LeftChild = delete.LeftChild
-        if swap.LeftChild is not None:
+        if swap.has_left_child():
             swap.LeftChild.Parent = swap
         
         swap.RightChild = delete.RightChild
-        if swap.RightChild is not None:
+        if swap.has_right_child():
             swap.RightChild.Parent = swap
 
         return True
@@ -143,9 +148,72 @@ class BST:
                 result += count_subtree(node.RightChild)
             return result
 
-        if self.Root is None:
+        if self.isEmpty():
             return 0
 
         return count_subtree(self.Root) 
+
+    def WideAllNodes(self):
+        if self.isEmpty():
+            return tuple()
+
+        result = []
+        buffer = [self.Root]
+
+        while len(buffer):
+            node = buffer.pop(0)
+            result.append(node)
+
+            if node.LeftChild:
+                buffer.append(node.LeftChild)
+            if node.RightChild:
+                buffer.append(node.RightChild)
+
+        return tuple(result)
+
+    def DeepAllNodes(self, method):
+        def deep_nodes_in_order(node):
+            result = []
+            if node.LeftChild:
+                result += deep_nodes_in_order(node.LeftChild)
+            result.append(node)
+            if node.RightChild:
+                result += deep_nodes_in_order(node.RightChild)
+            return result
+
+        def deep_nodes_pre_order(node):
+            result = []
+            result.append(node)
+            if node.LeftChild:
+                result += deep_nodes_pre_order(node.LeftChild)
+            if node.RightChild:
+                result += deep_nodes_pre_order(node.RightChild)
+            return result
+
+        def deep_nodes_post_order(node):
+            result = []
+            if node.LeftChild:
+                result += deep_nodes_post_order(node.LeftChild)
+            if node.RightChild:
+                result += deep_nodes_post_order(node.RightChild)
+            result.append(node)
+            return result
+
+        if self.isEmpty():
+            return tuple()
+
+        if method == BST.IN_ORDER:
+            result = deep_nodes_in_order(self.Root)
+        elif method == BST.PRE_ORDER:
+            result = deep_nodes_pre_order(self.Root)
+        elif method == BST.POST_ORDER:
+            result = deep_nodes_post_order(self.Root)
+        else:
+            raise ValueError('unexpected method')
+
+        return tuple(result)
+
+
+
 
 
