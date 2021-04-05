@@ -36,3 +36,37 @@ class aBST:
 
     def getRightChildIndex(self, index):
         return index * 2 + 2
+
+
+def GenerateBBSTArray(array):
+    if not array:
+        return []
+
+    sorted_array = sorted(array)
+    depth = calculate_depth(len(sorted_array))
+    result = [None] * calculate_length(depth)
+    fill_tree(sorted_array, 0, result)
+
+    return result
+
+
+def calculate_length(depth):
+    return 2 ** (depth + 1) - 1
+
+
+def calculate_depth(count):
+    depth = 0
+    while calculate_length(depth) < count:
+        depth += 1
+    return depth
+
+
+def fill_tree(array, index, tree):
+    if not array:
+        return
+
+    middle = len(array) // 2
+    tree[index] = array[middle]
+
+    fill_tree(array[:middle], index * 2 + 1, tree)
+    fill_tree(array[middle+1:], index * 2 + 2, tree)
