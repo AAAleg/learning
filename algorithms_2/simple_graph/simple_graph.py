@@ -107,6 +107,25 @@ class SimpleGraph:
             
             return []
 
+    def WeakVertices(self):
+        self.clear_vertices()
+
+        result = []
+
+        for v in range(self.max_vertex):
+            if self.is_visited(v):
+                continue
+
+            triangles = self.get_triangles(v)
+
+            if not triangles:
+                result.append(v)
+
+            else:
+                self.visit(*(v for triangle in triangles for v in triangle))
+
+        return [self.vertex[index] for index in result]
+
     def get_index(self, v):
         return self.vertex.index(v)
 
@@ -115,8 +134,9 @@ class SimpleGraph:
             if vertex is not None:
                 vertex.Hit = False
 
-    def visit(self, v):
-        self.vertex[v].Hit = True
+    def visit(self, *vertices):
+        for v in vertices:
+            self.vertex[v].Hit = True
 
     def get_edges(self, v):
         return {v2 for v2 in range(self.max_vertex) if self.IsEdge(v, v2)}
@@ -134,3 +154,13 @@ class SimpleGraph:
             current = route[current]
             path.append(current)
         return [self.vertex[index] for index in reversed(path)]
+
+    def get_triangles(self, v):
+        edges = self.get_edges(v)
+        for v1 in edges:
+            v1_edges = self.get_edges(v1)
+            intersection = set(v1_edges).intersection(edges)
+            if intersection:
+                return [(v, v1, v2) for v2 in intersection]
+
+        return []
