@@ -1,9 +1,37 @@
+class Queue:
+    def __init__(self):
+        self.items = []
+        self._size = 0
+
+    def isEmpty(self):
+        return self._size == 0
+
+    def enqueue(self, item):
+        self.items.insert(0, item)
+        self._size += 1
+
+    def dequeue(self):
+        if not self.isEmpty():
+            self._size -= 1
+            return self.items.pop()
+        return None 
+
+    def size(self):
+        return self._size
+
+    def rotate(self, n):
+        if not self.isEmpty():
+            for _ in range(n):
+                self.enqueue(self.dequeue())
+
+
 class Vertex:
 
     def __init__(self, val):
         self.Value = val
         self.Hit = False
-  
+
+
 class SimpleGraph:
 
     def __init__(self, size):
@@ -55,6 +83,33 @@ class SimpleGraph:
             else:
                 return []
 
+    def BreadthFirstSearch(self, VFrom, VTo):
+        self.clear_vertices()
+
+        queue = Queue()
+        current = VFrom
+        route = {}
+        self.visit(VFrom)
+
+        while True:
+            for vertex in self.get_unvisited_vertices(current):
+                self.visit(vertex)
+                route[vertex] = current
+
+                if vertex == VTo:
+                    return self.build_route(route, VFrom, VTo)
+
+                queue.enqueue(vertex)
+
+            if queue.size() != 0:
+                current = queue.dequeue()
+                continue
+            
+            return []
+
+    def get_index(self, v):
+        return self.vertex.index(v)
+
     def clear_vertices(self):
         for vertex in self.vertex:
             if vertex is not None:
@@ -71,3 +126,11 @@ class SimpleGraph:
 
     def get_unvisited_vertices(self, v):
         return [v for v in self.get_edges(v) if not self.is_visited(v)]
+
+    def build_route(self, route, VFrom, VTo):
+        current = VTo
+        path = [current]
+        while current != VFrom:
+            current = route[current]
+            path.append(current)
+        return [self.vertex[index] for index in reversed(path)]
