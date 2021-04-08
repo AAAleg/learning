@@ -69,3 +69,14 @@ class SimpleTree:
             return 0
 
         return leaf_count_subtree(self.Root)
+
+    def EvenTrees(self):
+        result = []
+
+        for child in self.Root.Children:
+            subtree = SimpleTree(child)
+            if subtree.Count() % 2 == 0:
+                result += [self.Root, child]
+            result += subtree.EvenTrees()
+
+        return result
