@@ -1,0 +1,26 @@
+Пересмотрите свои предыдущие решения и найдите в них 12 примеров имён переменных (не функций/методов), которые были плохими, и которые вы сейчас улучшите.
+Формат ответа: было - стало // комментарий к контексту
+
+comp - comparison_result // Переменная для хранения результата метода compare в OrderedList. Метод compare возвращает результат сравнения -1, 0 или 1.
+
+res - result // Переменная res в методах hash1 и hash2 в BloomFilter
+
+c - char // Переменная c для хранения текущего символа в цикле в методах hash1 и hash2 в BloomFilter
+
+summ - result // Переменная summ в методе hash_fun в NativeCache
+
+v - vertex // Переменная v в цикле метода visit в SimpleGraph
+
+result - found_elements // Переменная для хранения рельзтата поиска в связном списке LinkedList метод find_all
+
+prev - previous_item // Переменная для хранения предыдущего эелемента в списке LinkedList метод delete
+
+count - count_of_elements // Переменная счетчик количества эелементов в списке LinkedList метод len
+
+r - list_elements // Переменная для хранения элементов списка OrderedList метод get_all
+
+count - count_of_elements // Переменная счетчик количества эелементов в списке OrderedList метод len
+
+summ - total_sum // Переменная для хранения hash суммы NativeDictionary метод hash_fun
+
+p - ratio // Коеффициент для вычисления hash функции NativeDictionary метод hash_fun
