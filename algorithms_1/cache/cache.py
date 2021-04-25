@@ -7,8 +7,8 @@ class NativeCache:
 
     def hash_fun(self, key):
         p = 0.33
-        summ = sum(map(lambda s: ord(s) * p, key))
-        return int(summ % self.size)
+        result = sum(map(lambda s: ord(s) * p, key))
+        return int(result % self.size)
 
     def is_key(self, key):
         return key in self.slots

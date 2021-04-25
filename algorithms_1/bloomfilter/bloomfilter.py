@@ -5,18 +5,18 @@ class BloomFilter:
         self.slots = [0] * f_len
 
     def hash1(self, str1):
-        res = 0
+        result = 0
         for c in str1:
-            code = ord(c)
-            res = ((res * 17) + code) % self.filter_len
-        return res
+            code = ord(char)
+            result = ((result * 17) + code) % self.filter_len
+        return result
 
     def hash2(self, str1):
-        res = 0
-        for c in str1:
-            code = ord(c)
-            res = ((res * 223) + code) % self.filter_len
-        return res
+        result = 0
+        for char in str1:
+            code = ord(char)
+            result = ((result * 223) + code) % self.filter_len
+        return result
 
     def add(self, str1):
         self.slots[self.hash1(str1)] = 1

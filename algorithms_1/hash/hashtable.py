@@ -14,7 +14,7 @@ class HashTable:
         step = self.step
 
         if None in self.slots:
-            i = self.hash_fun(value)
+            index = self.hash_fun(value)
             step = self.step
 
             while True:

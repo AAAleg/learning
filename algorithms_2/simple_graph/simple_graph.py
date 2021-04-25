@@ -135,8 +135,8 @@ class SimpleGraph:
                 vertex.Hit = False
 
     def visit(self, *vertices):
-        for v in vertices:
-            self.vertex[v].Hit = True
+        for vertex in vertices:
+            self.vertex[vertex].Hit = True
 
     def get_edges(self, v):
         return {v2 for v2 in range(self.max_vertex) if self.IsEdge(v, v2)}

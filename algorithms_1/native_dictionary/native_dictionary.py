@@ -5,9 +5,9 @@ class NativeDictionary:
         self.values = [None] * self.size
 
     def hash_fun(self, key):
-        p = 0.33
-        summ = sum(map(lambda s: ord(s) * p, key))
-        return int(summ % self.size)
+        ratio = 0.33
+        total_sum = sum(map(lambda s: ord(s) * ratio, key))
+        return int(total_sum % self.size)
 
     def is_key(self, key):
         return key in self.slots

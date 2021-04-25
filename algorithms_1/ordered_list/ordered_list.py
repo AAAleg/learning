@@ -25,14 +25,14 @@ class OrderedList:
             self.tail = node
         else:
             while node is not None:
-                comp = self.compare(node.value, value)
-                if comp == 0:
+                comparison_result = self.compare(node.value, value)
+                if comparison_result == 0:
                     self.insert(node, Node(value))
                     return
-                if comp == (1 if self.__ascending else -1):
+                if comparison_result == (1 if self.__ascending else -1):
                     self.insert(node.prev, Node(value))
                     return
-                if comp == (-1 if self.__ascending else 1) and node is self.tail:
+                if comparison_result == (-1 if self.__ascending else 1) and node is self.tail:
                     self.insert(self.tail, Node(value))
                     return
 
@@ -81,20 +81,20 @@ class OrderedList:
         self.tail = None
 
     def len(self):
-        count = 0
+        count_of_elements = 0
         node = self.head
         while node is not None:
-            count += 1
+            count_of_elements += 1
             node = node.next
-        return count
+        return count_of_elements
 
     def get_all(self):
-        r = []
+        list_elements = []
         node = self.head
         while node != None:
-            r.append(node)
+            list_elements.append(node)
             node = node.next
-        return r
+        return list_elements
 
     def insert(self, afterNode, newNode):
         if afterNode is None:
