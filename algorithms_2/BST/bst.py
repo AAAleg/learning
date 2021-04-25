@@ -91,51 +91,51 @@ class BST:
         if not find_result.NodeHasKey:
             return False
 
-        delete = find_result.Node
+        node_to_delete = find_result.Node
 
-        delete_side = None if not delete.Parent else (True if delete.Parent.RightChild == delete else False)
+        delete_side = None if not node_to_delete.Parent else (True if node_to_delete.Parent.RightChild == node_to_delete else False)
         
-        if delete.has_right_child():
-            swap = self.FinMinMax(delete.RightChild, False)
-        elif delete.has_left_child():
-            swap = self.FinMinMax(delete.LeftChild, True)
+        if node_to_delete.has_right_child():
+            node_to_swap = self.FinMinMax(node_to_delete.RightChild, False)
+        elif node_to_delete.has_left_child():
+            node_to_swap = self.FinMinMax(node_to_delete.LeftChild, True)
         else:
-            swap = None
+            node_to_swap = None
         
-        if swap is None:
+        if node_to_swap is None:
             if delete_side is True:
-                delete.Parent.RightChild = None
+                node_to_delete.Parent.RightChild = None
             elif delete_side is False:
-                delete.Parent.LeftChild = None
+                node_to_delete.Parent.LeftChild = None
             else:
                 self.Root = None
             return True
         
-        if swap.Parent.RightChild == swap:
-            swap.Parent.RightChild = swap.LeftChild
-            if swap.has_left_child():
-                swap.LeftChild.Parent = swap.Parent
+        if node_to_swap.Parent.RightChild == node_to_swap:
+            node_to_swap.Parent.RightChild = node_to_swap.LeftChild
+            if node_to_swap.has_left_child():
+                node_to_swap.LeftChild.Parent = node_to_swap.Parent
         else:
-            swap.Parent.LeftChild = swap.RightChild
-            if swap.has_right_child():
-                swap.RightChild.Parent = swap.Parent
+            node_to_swap.Parent.LeftChild = node_to_swap.RightChild
+            if node_to_swap.has_right_child():
+                node_to_swap.RightChild.Parent = node_to_swap.Parent
         
         if delete_side is True:
-            delete.Parent.RightChild = swap
+            node_to_delete.Parent.RightChild = node_to_swap
         elif delete_side is False:
-            delete.Parent.LeftChild = swap
+            node_to_delete.Parent.LeftChild = node_to_swap
         else:
-            self.Root = swap
+            self.Root = node_to_swap
 
-        swap.Parent = delete.Parent
+        node_to_swap.Parent = node_to_delete.Parent
  
-        swap.LeftChild = delete.LeftChild
-        if swap.has_left_child():
-            swap.LeftChild.Parent = swap
+        node_to_swap.LeftChild = node_to_delete.LeftChild
+        if node_to_swap.has_left_child():
+            node_to_swap.LeftChild.Parent = node_to_swap
         
-        swap.RightChild = delete.RightChild
-        if swap.has_right_child():
-            swap.RightChild.Parent = swap
+        node_to_swap.RightChild = node_to_delete.RightChild
+        if node_to_swap.has_right_child():
+            node_to_swap.RightChild.Parent = node_to_swap
 
         return True
 

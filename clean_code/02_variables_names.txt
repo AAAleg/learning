@@ -4,3 +4,27 @@
 6.4. Найдите пять имён переменных в своём коде, длины которых не укладываются в 8-20 символов, и исправьте, чтобы они укладывались в данный диапазон.
 
 
+6.1
+depth - tree_depth  // GenerateBBSTArray
+result - tree_array // GenerateBBSTArray
+result - subnodes_counter // BSTNode.count_subnodes()
+left_side - left_side_subnodes_counter // BSTNode.is_subtree_balanced()
+right_side - right_side_subnodes_counter // BSTNode.is_subtree_balanced()
+
+6.2
+//TODO: Подумать и добавить
+
+
+
+6.3
+// Контекст данные победителя
+winner_requirements_clothing_size
+winner_requirements_date_of_birth
+winner_requirements_address
+
+6.4
+delete - node_to_delete // BST.DeleteNodeByKey() узел для удаления
+swap - node_to_swap // BST.DeleteNodeByKey() узел для обмена
+result - found_elements // SimpleTree.FindNodesByValue()
+result - event_trees // SimpleTree.EvenTrees() список четный деревьев
+reuslt - all_nodes // SimpleTree.GetAllNodes() список всех нод дерева

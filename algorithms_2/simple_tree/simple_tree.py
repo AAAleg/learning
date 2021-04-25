@@ -20,10 +20,10 @@ class SimpleTree:
 
     def GetAllNodes(self):
         def walk(node):
-            result = [node]
+            all_nodes = [node]
             for child in node.Children:
-                result += walk(child)
-            return result
+                all_nodes += walk(child)
+            return all_nodes
 
         if self.Root is None:
             return []
@@ -32,12 +32,12 @@ class SimpleTree:
 
     def FindNodesByValue(self, val):
         def walk(node, val):
-            result = []
+            founded_elements = []
             if node.NodeValue == val:
-                result.append(node)
+                founded_elements.append(node)
             for child in node.Children:
-                result += walk(child, val)
-            return result
+                founded_elements += walk(child, val)
+            return founded_elements
 
         if self.Root is None:
             return []
@@ -71,12 +71,12 @@ class SimpleTree:
         return leaf_count_subtree(self.Root)
 
     def EvenTrees(self):
-        result = []
+        even_trees = []
 
         for child in self.Root.Children:
             subtree = SimpleTree(child)
             if subtree.Count() % 2 == 0:
-                result += [self.Root, child]
-            result += subtree.EvenTrees()
+                even_trees += [self.Root, child]
+            even_trees += subtree.EvenTrees()
 
-        return result
+        return even_trees

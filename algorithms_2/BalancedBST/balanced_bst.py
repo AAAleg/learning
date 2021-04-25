@@ -13,20 +13,20 @@ class BSTNode:
 
     
     def count_subnodes(self):
-        result = 1
+        subnodes_counter = 1
         if self.LeftChild is not None:
-            result += self.LeftChild.count_subnodes()
+            subnodes_counter += self.LeftChild.count_subnodes()
         if self.RightChild is not None:
-            result += self.RightChild.count_subnodes()
+            subnodes_counter += self.RightChild.count_subnodes()
 
-        return result
+        return subnodes_counter
 
     def is_subtree_balanced(self):
-        left_count = self.LeftChild.count_subnodes() if self.LeftChild else 0
-        right_count = self.RightChild.count_subnodes() if self.RightChild else 0
+        left_side_subnodes_counter = self.LeftChild.count_subnodes() if self.LeftChild else 0
+        right_side_subnodes_counter = self.RightChild.count_subnodes() if self.RightChild else 0
 
         if (
-            abs(left_count - right_count) > 1 or
+            abs(left_side_subnodes_counter - right_side_subnodes_counter) > 1 or
             self.LeftChild and not self.LeftChild.is_subtree_balanced() or
             self.RightChild and not self.RightChild.is_subtree_balanced()
         ):

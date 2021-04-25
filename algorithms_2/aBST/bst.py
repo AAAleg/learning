@@ -43,11 +43,11 @@ def GenerateBBSTArray(array):
         return []
 
     sorted_array = sorted(array)
-    depth = calculate_depth(len(sorted_array))
-    result = [None] * calculate_length(depth)
-    fill_tree(sorted_array, 0, result)
+    tree_depth = calculate_depth(len(sorted_array))
+    tree_array = [None] * calculate_length(tree_depth)
+    fill_tree(sorted_array, 0, tree_array)
 
-    return result
+    return tree_array
 
 
 def calculate_length(depth):
