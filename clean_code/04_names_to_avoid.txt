@@ -1,0 +1,12 @@
+Найдите 12 примеров имён в вашем коде, которые следует избегать, исправьте, и выложите на гитхаб в формате "было - стало" (с учётом контекста).
+
+// TODO: Найти еще 5 примеров
+
+val - value // Класс LinkedList методы find, find_all, delete
+i - index // Класс DynArray методы insert, delete
+v - vertex // Класс SimpleGraph метод get_triangles
+v1 - adjacent_vertex // Класс SimpleGraph метод get_triangles
+v1_edges - adjacent_edges // Класс SimpleGraph метод get_triangles
+v2 - intersection_vertex // Класс SimpleGraph метод get_triangles
+set2 - other_set // Класс PowerSet методы intersection, union, difference, issubset
+
